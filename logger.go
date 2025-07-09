@@ -1,4 +1,4 @@
-package ezlog
+package main
 
 import (
 	"errors"
