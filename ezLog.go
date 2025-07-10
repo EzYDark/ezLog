@@ -1,7 +1,6 @@
 package ezLog
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -12,18 +11,16 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-var initialized bool
-
-// Init initializes the logger with the default stdout writer.
-func Init() (*zerolog.Logger, error) {
-	return InitWithWriter(os.Stdout)
+// Init initializes the global logger with the default stdout writer.
+func Init() {
+	InitWithWriter(os.Stdout)
 }
 
-// InitWithWriter initializes the logger with a custom writer.
-func InitWithWriter(writer io.Writer) (*zerolog.Logger, error) {
-	if initialized {
-		return nil, errors.New("logger is already initialized")
-	}
+// InitWithWriter initializes the global logger with a custom writer.
+func InitWithWriter(writer io.Writer) {
+	// Configure global settings
+	zerolog.SetGlobalLevel(zerolog.DebugLevel)
+	zerolog.TimeFieldFormat = "15:04:05.000"
 
 	// Configure global settings
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
@@ -31,7 +28,7 @@ func InitWithWriter(writer io.Writer) (*zerolog.Logger, error) {
 
 	// Configure custom console writer
 	consoleOutput := zerolog.ConsoleWriter{
-		Out:        writer, // Use the provided writer
+		Out:        writer,
 		TimeFormat: "15:04:05.000",
 		NoColor:    false,
 	}
@@ -72,7 +69,4 @@ func InitWithWriter(writer io.Writer) (*zerolog.Logger, error) {
 
 	// Set the global logger
 	log.Logger = newLogger
-
-	initialized = true
-	return &log.Logger, nil
 }
