@@ -18,8 +18,8 @@ type LogBuilder struct {
 	writer      io.Writer
 }
 
-// Init creates a new LogBuilder.
-func Init() *LogBuilder {
+// New creates a new LogBuilder.
+func New() *LogBuilder {
 	builder := LogBuilder{
 		tviewCompat: false,
 		writer:      os.Stdout,
