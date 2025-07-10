@@ -15,14 +15,14 @@ import (
 var initialized bool
 
 // Init initializes the logger with the default stdout writer.
-func Init() error {
+func Init() (*zerolog.Logger, error) {
 	return InitWithWriter(os.Stdout)
 }
 
 // InitWithWriter initializes the logger with a custom writer.
-func InitWithWriter(writer io.Writer) error {
+func InitWithWriter(writer io.Writer) (*zerolog.Logger, error) {
 	if initialized {
-		return errors.New("logger is already initialized")
+		return nil, errors.New("logger is already initialized")
 	}
 
 	// Configure global settings
@@ -74,5 +74,5 @@ func InitWithWriter(writer io.Writer) error {
 	log.Logger = newLogger
 
 	initialized = true
-	return nil
+	return &log.Logger, nil
 }
