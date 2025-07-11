@@ -1,4 +1,4 @@
-package ezLog
+package ezlog
 
 import (
 	"fmt"
