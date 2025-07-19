@@ -28,7 +28,7 @@ func New() *LogBuilder {
 	return &LogBuilder{
 		tviewCompat: false,
 		writer:      os.Stdout,
-		isGlobal:    false, // Default behavior is to create a local logger
+		isGlobal:    true, // Default behavior is to create a global logger
 	}
 }
 
@@ -38,10 +38,10 @@ func (b *LogBuilder) WithTag(tag string) *LogBuilder {
 	return b
 }
 
-// AsGlobal configures the builder to create a logger that also replaces
+// AsLocal configures the builder to create a logger that also replaces
 // the global instance upon building.
-func (b *LogBuilder) AsGlobal() *LogBuilder {
-	b.isGlobal = true
+func (b *LogBuilder) AsLocal() *LogBuilder {
+	b.isGlobal = false
 	return b
 }
 
