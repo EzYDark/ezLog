@@ -52,11 +52,7 @@ func (b *LogBuilder) WithWriter(writer io.Writer) *LogBuilder {
 }
 
 // Build builds and configures the zerolog global logger.
-func (b *LogBuilder) Build() {
-	// Configure global settings
-	zerolog.SetGlobalLevel(zerolog.DebugLevel)
-	zerolog.TimeFieldFormat = "15:04:05.000"
-
+func (b *LogBuilder) Build() *zerolog.Logger {
 	// Configure global settings
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	zerolog.TimeFieldFormat = "15:04:05.000"
@@ -122,4 +118,6 @@ func (b *LogBuilder) Build() {
 
 	// Set the global logger
 	log.Logger = newLogger
+
+	return &newLogger
 }
